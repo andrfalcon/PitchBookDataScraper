@@ -23,30 +23,40 @@ let Persons = [];
 let $ = null;
 
 function GetName(text) {
-  return text.split(' ').slice(0,3).join(' ');
+  const titleAndFullName = text.split(' ').slice(0,3)
+  let name = {
+    title: titleAndFullName[0],
+    firstName: titleAndFullName[1],
+    lastName: titleAndFullName[2]
+  }
+  return name
+  // return text.split(' ').slice(0,3).join(' ');
 }
 
 function ScrapePerson(row) {
-  let position = $(`#search-results-data-table-row-${row}-cell-3`)
+  let company = $(`#search-results-data-table-row-${row}-cell-3`)
     .first()
     .text();
-  let company = $(`#search-results-data-table-row-${row}-cell-4`)
+  let position = $(`#search-results-data-table-row-${row}-cell-4`)
     .first()
     .text();
   var name = $(`#search-results-data-table-row-${row}-cell-7`)
     .first()
     .text();
+  var title = GetName(name).title;
+  var firstName = GetName(name).firstName
+  var lastName = GetName(name).lastName
   let email = $(`#search-results-data-table-row-${row}-cell-10`)
     .first()
     .text();
-
-  name = GetName(name);
   
   let person = {
+    title,
+    firstName,
+    lastName,
+    email,
     position,
-    company,
-    name,
-    email
+    company
   };
   console.log(person);
   return person;
