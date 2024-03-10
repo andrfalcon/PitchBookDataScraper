@@ -22,34 +22,33 @@ console.log(outputFile);
 let Persons = [];
 let $ = null;
 
+function GetName(text) {
+  return text.split(' ').slice(0,3).join(' ');
+}
+
 function ScrapePerson(row) {
-  let firstName = $(`#search-results-data-table-row-${row}-cell-0`)
+  let position = $(`#search-results-data-table-row-${row}-cell-3`)
     .first()
     .text();
-  let lastName = $(`#search-results-data-table-row-${row}-cell-1`)
+  let company = $(`#search-results-data-table-row-${row}-cell-4`)
     .first()
     .text();
-  let company = $(`#search-results-data-table-row-${row}-cell-2`)
+  var name = $(`#search-results-data-table-row-${row}-cell-7`)
     .first()
     .text();
-  let email = $(`#search-results-data-table-row-${row}-cell-3`)
-    .first()
-    .text();
-  let position = $(`#search-results-data-table-row-${row}-cell-4`)
+  let email = $(`#search-results-data-table-row-${row}-cell-10`)
     .first()
     .text();
 
+  name = GetName(name);
+  
   let person = {
-    firstName,
-    lastName,
-    company,
-    email,
     position,
+    company,
+    name,
+    email
   };
   console.log(person);
-  if (firstName == '' && lastName == '' && company == '') {
-    return null;
-  }
   return person;
 }
 
